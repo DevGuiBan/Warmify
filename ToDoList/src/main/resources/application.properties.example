@@ -1,8 +1,0 @@
-spring.application.name=ToDoList
-
-spring.datasource.url=jdbc:postgresql://localhost:PORT/YOUR_DATABASE
-spring.datasource.username=YOUR_USERNAME
-spring.datasource.password=YOUR_PASSWORD
-spring.datasource.driver-class-name=org.postgresql.Driver
-
-api.security.secret=${JWT_SECRET:my-secret-key}
