@@ -26,7 +26,7 @@ public class UserController {
             List<UserResponseDTO> userList = userRepository.findAll().stream().map(UserResponseDTO::new).toList();
 
             return ResponseEntity.ok(userList);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
     }

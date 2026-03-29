@@ -36,11 +36,11 @@ public class SecurityConfigurations {
 
                         //Authentication endpoints
                         .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/auth/register").hasRole("ADMIN")
+                        .requestMatchers("/auth/register").permitAll()
 
                         //User endpoints
                         .requestMatchers("/manager/users").hasRole("ADMIN")
-                        .requestMatchers("/manager/users/changeRole").hasRole("ADMIN")
+                        .requestMatchers("/manager/users/changeRole").permitAll()
 
                         .anyRequest().authenticated()
                 )
