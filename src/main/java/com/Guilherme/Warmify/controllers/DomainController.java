@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("domain")
@@ -23,18 +24,50 @@ public class DomainController {
 
     @GetMapping("/domains")
     public ResponseEntity<?> getAllDomains() {
-        try {
-            List<DomainResponseDTO> domainList = domainRepository.findAll().stream().map(DomainResponseDTO::new).toList();
 
-            return ResponseEntity.ok(domainList);
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
+        List<DomainResponseDTO> domainList = domainRepository
+                .findAll()
+                .stream()
+                .map(DomainResponseDTO::new)
+                .toList();
+
+        if(domainList.isEmpty()) {
+            return ResponseEntity.badRequest().body("Nenhum domínio encontrado");
         }
+
+        return ResponseEntity.ok(domainList);
+    }
+
+    @GetMapping("/domainById")
+    public ResponseEntity<?> getDomainsById(@RequestParam UUID id) {
+
+        Domain domain = domainRepository.findById(id).orElse(null);
+
+        if(domain == null) {
+            return ResponseEntity.status(404).body("Nenhum domínio encontrado");
+        }
+
+        return ResponseEntity.ok(domain);
+    }
+
+    @GetMapping("/domainByUrl")
+    public ResponseEntity<?> getDomainsById(@RequestParam String url) {
+
+        Domain domain = domainRepository.findByDomUrl(url);
+
+        if(domain == null) {
+            return ResponseEntity.status(404).body("Nenhum domínio encontrado");
+        }
+
+        return ResponseEntity.ok(domain);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerDomain(@RequestBody @Valid DomainRegisterDTO data) {
-        if(this.domainRepository.findByDomUrl(data.domUrl()) != null) return ResponseEntity.badRequest().build();
+    public ResponseEntity<String> registerDomain(@RequestBody @Valid DomainRegisterDTO data) {
+
+        if(domainRepository.existsByDomUrl(data.domUrl())) {
+            return ResponseEntity.badRequest().body("Já existe um cadastro para este domínio.");
+        }
 
         Domain newDomain = new Domain(data.domUrl());
         domainRepository.save(newDomain);
@@ -42,32 +75,28 @@ public class DomainController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteDomain(@RequestParam String domUrl) {
-        Domain domain = domainRepository.findByDomUrl(domUrl);
+    public ResponseEntity<String> deleteDomain(@RequestParam String domUrl) {
 
-        if(domain == null) return ResponseEntity.notFound().build();
-
-        try {
-            domainRepository.delete(domain);
-            return ResponseEntity.ok("Domínio deletado com sucesso.");
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
+        if(!domainRepository.existsByDomUrl(domUrl)) {
+            return ResponseEntity.badRequest().body("Domínio não encontrado.");
         }
 
+        domainRepository.deleteByDomUrl(domUrl);
+
+        return ResponseEntity.ok("Domínio deletado com sucesso.");
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<?> alterDomain(@RequestParam String domUrl, @RequestParam String newDom) {
+    public ResponseEntity<String> alterDomain(@RequestParam String domUrl, @RequestParam String newDom) {
         Domain domain = domainRepository.findByDomUrl(domUrl);
 
-        if (domain == null) return ResponseEntity.notFound().build();
-
-        try {
-            domain.setDomUrl(newDom);
-            domainRepository.save(domain);
-            return ResponseEntity.ok("Domínio alterado com sucesso!");
-        }catch (RuntimeException e) {
-            throw new RuntimeException(e);
+        if (domain == null) {
+            return ResponseEntity.badRequest().body("Domínio não encontrado.");
         }
+
+        domain.setDomUrl(newDom);
+        domainRepository.save(domain);
+
+        return ResponseEntity.ok("Domínio alterado com sucesso!");
     }
 }

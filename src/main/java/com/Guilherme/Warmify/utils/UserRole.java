@@ -1,4 +1,4 @@
-package com.Guilherme.Warmify.domain.users;
+package com.Guilherme.Warmify.utils;
 
 import lombok.Getter;
 

@@ -18,22 +18,24 @@ public class Facebook {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NonNull
     @Column(name = "profile_name")
     private String profileName;
 
-    @NonNull
     private String email;
 
-    @NonNull
     private String password;
 
-    @NonNull
     private String url;
 
-    @NonNull
     @Enumerated(EnumType.STRING)
+    @Column(name = "status_account")
     private StatusAccount statusAccount;
 
-
+    public Facebook (String profileName, String email, String password, String url, StatusAccount statusAccount) {
+        this.profileName = profileName;
+        this.email = email;
+        this.password = password;
+        this.url = url;
+        this.statusAccount = statusAccount;
+    }
 }

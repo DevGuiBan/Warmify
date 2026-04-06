@@ -1,7 +1,9 @@
 package com.Guilherme.Warmify.domain.users.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record RegisterDTO(
-        String name,
-        String email,
-        String password) {
+        @NotBlank String name,
+        @NotBlank String email,
+        @NotBlank String password) {
 }

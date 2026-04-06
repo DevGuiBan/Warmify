@@ -1,5 +1,6 @@
 package com.Guilherme.Warmify.domain.users;
 
+import com.Guilherme.Warmify.utils.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,20 +24,16 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @NonNull
     private boolean active;
 
-    @NonNull
     private String name;
 
-    @NonNull
     private String email;
 
-    @NonNull
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role")
+    @Column(name = "user_role")
     private UserRole userRole;
 
     public User (String name, String email, String password, UserRole userRole, boolean active){
@@ -59,6 +56,11 @@ public class User implements UserDetails {
     }
 
     @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
         return UserDetails.super.isAccountNonExpired();
     }
@@ -75,6 +77,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return active;
     }
 }

@@ -1,4 +1,6 @@
 package com.Guilherme.Warmify.domain.domain.dto;
 
-public record DomainRegisterDTO(String domUrl) {
+import jakarta.validation.constraints.NotBlank;
+
+public record DomainRegisterDTO(@NotBlank String domUrl) {
 }

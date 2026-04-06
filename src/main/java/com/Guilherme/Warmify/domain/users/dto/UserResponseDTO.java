@@ -1,7 +1,7 @@
 package com.Guilherme.Warmify.domain.users.dto;
 
 import com.Guilherme.Warmify.domain.users.User;
-import com.Guilherme.Warmify.domain.users.UserRole;
+import com.Guilherme.Warmify.utils.UserRole;
 
 import java.util.UUID;
 

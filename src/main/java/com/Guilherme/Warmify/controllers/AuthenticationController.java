@@ -1,7 +1,7 @@
 package com.Guilherme.Warmify.controllers;
 
 import com.Guilherme.Warmify.domain.users.User;
-import com.Guilherme.Warmify.domain.users.UserRole;
+import com.Guilherme.Warmify.utils.UserRole;
 import com.Guilherme.Warmify.domain.users.dto.AuthenticationDTO;
 import com.Guilherme.Warmify.domain.users.dto.LoginResponseDTO;
 import com.Guilherme.Warmify.domain.users.dto.RegisterDTO;
@@ -52,7 +52,10 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody @Valid RegisterDTO data) {
-        if (this.userRepository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
+
+        if(userRepository.existsByEmail(data.email())) {
+            return ResponseEntity.badRequest().body("Este email já está sendo utilizado.");
+        }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         User newUser = new User(data.name(), data.email(), encryptedPassword, UserRole.USER, true);

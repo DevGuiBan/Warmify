@@ -3,9 +3,11 @@ package com.Guilherme.Warmify.domain.domain.dto;
 
 import com.Guilherme.Warmify.domain.domain.Domain;
 
-public record DomainResponseDTO(String url) {
+import java.util.UUID;
+
+public record DomainResponseDTO(UUID id, String url) {
 
     public DomainResponseDTO(Domain domain) {
-        this(domain.getDomUrl());
+        this(domain.getId(), domain.getDomUrl());
     }
 }
