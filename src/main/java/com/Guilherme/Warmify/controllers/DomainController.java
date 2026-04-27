@@ -77,11 +77,13 @@ public class DomainController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteDomain(@RequestParam String domUrl) {
 
-        if(!domainRepository.existsByDomUrl(domUrl)) {
+        Domain domain = domainRepository.findByDomUrl(domUrl);
+
+        if(domain == null) {
             return ResponseEntity.badRequest().body("Domínio não encontrado.");
         }
 
-        domainRepository.deleteByDomUrl(domUrl);
+        domainRepository.delete(domain);
 
         return ResponseEntity.ok("Domínio deletado com sucesso.");
     }

@@ -35,9 +35,12 @@ public class SecurityConfigurations {
                         //Api-docs
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 
+                        // Static front-end
+                        .requestMatchers("/", "/index.html", "/styles.css", "/app.js", "/favicon.ico").permitAll()
+
                         // Authentication
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
 
                         // User management
                         .requestMatchers("/manager/**").permitAll()

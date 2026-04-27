@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Warmify - painel para aquecimento e gerenciamento de perfis Facebook e Instagram." />
+  <title>Warmify</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div id="toast-area" class="toast-area" aria-live="polite" aria-atomic="true"></div>
+  <div id="auth-screen" class="auth-screen"></div>
+  <div id="app-shell" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">W</div>
+        <div>
+          <strong>Warmify</strong>
+          <small>Social warming hub</small>
+        </div>
+      </div>
+
+      <nav class="nav" id="nav"></nav>
+
+      <div class="sidebar-card">
+        <div class="muted">Conectado como</div>
+        <div id="current-user" class="user-pill">—</div>
+        <div id="api-status" class="tiny muted">API: aguardando…</div>
+      </div>
+
+      <button id="logout-btn" class="ghost-button" type="button">Sair</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="page-title">Dashboard</h1>
+          <p id="page-subtitle" class="muted">Visão geral do aquecimento e dos dados de operação.</p>
+        </div>
+        <div class="topbar-actions">
+          <button id="refresh-btn" class="secondary-button" type="button">Atualizar dados</button>
+          <button id="quick-add-btn" class="primary-button" type="button">Novo registro</button>
+        </div>
+      </header>
+
+      <section id="content" class="content"></section>
+    </main>
+  </div>
+
+  <dialog id="modal" class="modal"></dialog>
+  <script src="/app.js"></script>
+</body>
+</html>
+

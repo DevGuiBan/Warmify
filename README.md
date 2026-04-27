@@ -1,6 +1,6 @@
 # Warmify
 
-API backend para **aquecimento de perfis e paginas do Facebook**, com controle de usuarios, autenticacao JWT e base pronta para evolucao de automacoes sociais.
+API backend e front-end para **aquecimento de perfis e paginas do Facebook e Instagram**, com controle de usuarios, autenticacao JWT e base pronta para evolucao de automacoes sociais.
 
 ## Objetivo do projeto
 
@@ -10,7 +10,8 @@ Na pratica, a aplicacao busca:
 - centralizar contas e dados de aquecimento;
 - controlar acesso de operadores e administradores;
 - registrar e preparar estruturas para rotinas de aquecimento;
-- permitir evolucao futura para multiplos dominios sociais.
+- permitir evolucao futura para multiplos dominios sociais;
+- oferecer um painel web unico para gerenciar Facebook, Instagram, portfolios, domínios e recuperações.
 
 ## Stack utilizada
 
@@ -20,6 +21,7 @@ Na pratica, a aplicacao busca:
 - Flyway (migrations)
 - JWT (`java-jwt`)
 - Swagger/OpenAPI (`springdoc-openapi`)
+- Front-end estático em `src/main/resources/static`
 
 ## Requisitos
 
@@ -47,6 +49,44 @@ cd /home/guiban/Documentos/git/Warmify
 ```
 
 A API sobe por padrao em `http://localhost:8080`.
+
+## Front-end
+
+O projeto agora inclui uma SPA estática servida pelo próprio Spring Boot.
+
+### Acesso
+
+- Interface principal: `http://localhost:8080/`
+- Se a API estiver em outra origem, a tela de login permite informar a base da API.
+
+### Funcionalidades da interface
+
+- login e cadastro de acesso;
+- dashboard com visão do aquecimento;
+- gestão de usuários;
+- gestão de domínios;
+- gestão de contas Facebook e Instagram;
+- gestão de portfólios de negócio;
+- gestão de páginas Facebook;
+- gestão de números de portfólio;
+- gestão de chaves de recuperação Facebook e Instagram;
+- visualização de vínculos entre contas, portfólios e ativos relacionados.
+
+### Observação importante
+
+O front-end foi montado para o contrato atual dos controllers existentes, incluindo rotas legadas como:
+
+- `/auth/login`
+- `/auth/register`
+- `/manager/users`
+- `/domain/**`
+- `/facebook/**`
+- `/instagram/**`
+- `/business-portfolios/**`
+- `/facebook-pages/**`
+- `/number-portfolios/**`
+- `/facebook-recovery-keys/**`
+- `/instagram-recovery-keys/**`
 
 ## Documentacao da API
 

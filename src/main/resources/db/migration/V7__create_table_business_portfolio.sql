@@ -3,6 +3,7 @@ CREATE TABLE business_portfolio(
     bm_name VARCHAR(255) NOT NULL,
     cnjp VARCHAR(255) NOT NULL,
     cnpj_pdf VARCHAR(255),
+    facebook_pages JSONB NOT NULL DEFAULT '[]'::jsonb,
     status VARCHAR(50) NOT NULL,
 
     dom_id UUID,

@@ -1,6 +1,5 @@
 package com.Guilherme.Warmify.domain.facebookpage;
 
-import com.Guilherme.Warmify.domain.businessportfolio.BusinessPortfolio;
 import com.Guilherme.Warmify.domain.facebook.Facebook;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,14 +28,9 @@ public class FacebookPage {
 	@JoinColumn(name = "facebook_account_id", nullable = false)
 	private Facebook facebookAccount;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "business_portfolio_id", nullable = false)
-	private BusinessPortfolio businessPortfolio;
-
-	public FacebookPage(String pageName, Facebook facebookAccount, BusinessPortfolio businessPortfolio) {
+	public FacebookPage(String pageName, Facebook facebookAccount) {
 		this.pageName = pageName;
 		this.facebookAccount = facebookAccount;
-		this.businessPortfolio = businessPortfolio;
 	}
 }
 

@@ -5,11 +5,15 @@ import com.Guilherme.Warmify.domain.facebook.Facebook;
 import com.Guilherme.Warmify.domain.instagram.Instagram;
 import com.Guilherme.Warmify.utils.StatusBM;
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "business_portfolio")
@@ -32,6 +36,10 @@ public class BusinessPortfolio {
 
     @Column(name = "cnpj_pdf")
     private String cnpjPdf;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "facebook_pages", columnDefinition = "jsonb", nullable = false)
+    private List<UUID> facebookPages = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private StatusBM status;
